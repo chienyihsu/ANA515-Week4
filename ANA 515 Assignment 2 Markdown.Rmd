@@ -1,0 +1,35 @@
+---
+title: "ANA 515 Assignment 2"
+author: "Cindy Hsu"
+date: '2024'
+output: word_document
+---
+
+This dataset shows where do people drink the most beer, wine and spirits by country. We can try to analyze which country drinks the most.The data was collected by WHO and formatted in comma separated values format. Excel can be used to open it.
+
+```{r, include = FALSE}
+library("tidyverse")
+library("knitr")
+```
+
+```{r, echo = TRUE}
+drinks <- read.csv("C:\\Users\\Cindy Hsu\\Downloads\\drinks.csv")
+#We use read.csv function to read the data and assign it to an object.
+```
+
+```{r, echo = TRUE}
+rename(drinks, Liters.Drank = total_litres_of_pure_alcohol)
+```
+
+This dataframe has `r nrow(drinks)` rows and `r ncol(drinks)` columns. The names of the columns and a brief description of each are in the table below:
+
+```{r, echo = TRUE}
+colsum = data.frame(Columns = c(colnames(drinks)), Description = c("Country","Avg Beer Servings", "Avg Spirit Servings", "Avg Wine Servings", "Avg Total Liters"))
+kable(colsum, caption = "Description of Columns")
+```
+
+```{r, echo = TRUE} 
+drinksnew <- select(drinks, country, spirit_servings, wine_servings)
+final <- summary(drinksnew)
+final
+```
